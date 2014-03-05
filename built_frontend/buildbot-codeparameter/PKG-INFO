@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: buildbot-codeparameter
+Version: 0.1.0
+Summary: Buildbot Sample Plugin
+Home-page: http://buildbot.net/
+Author: Pierre Tardy
+Author-email: tardyp@gmail.com
+License: GNU GPL
+Description: UNKNOWN
+Platform: UNKNOWN
