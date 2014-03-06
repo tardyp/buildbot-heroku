@@ -43,3 +43,18 @@ s = BuildSlave(buildmaster_host, port, slavename, passwd, slavedir,
                keepalive, usepty, umask=umask, maxdelay=maxdelay,
                allow_shutdown=allow_shutdown)
 s.setServiceParent(application)
+
+from twisted.application.internet import TimerService
+from twisted.internet import threads
+import requests
+buildbotURL = os.environ.get('buildbotURL')
+
+
+def pingMyself():
+    print "pinging", buildbotURL
+    threads.deferToThread(lambda: requests.get(buildbotURL))
+
+
+if buildbotURL is not None:
+    t = TimerService(int(os.environ.get('PING_DELAY', '1')), pingMyself)
+    t.setServiceParent(application)
