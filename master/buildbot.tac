@@ -7,9 +7,6 @@ from buildslave.bot import BuildSlave
 
 # setup master
 basedir = os.path.abspath(os.path.dirname(__file__))
-
-rotateLength = '10000000'
-maxRotatedFiles = '10'
 configfile = 'master.cfg'
 
 # Default umask for server
@@ -18,21 +15,19 @@ umask = None
 # note: this line is matched against to check that this is a buildmaster
 # directory; do not edit it.
 application = service.Application('buildmaster')
-from twisted.python.logfile import LogFile
+import sys
+
 from twisted.python.log import ILogObserver, FileLogObserver
-logfile = LogFile.fromFullPath(os.path.join(basedir, "twistd.log"), rotateLength=rotateLength,
-                               maxRotatedFiles=maxRotatedFiles)
-application.setComponent(ILogObserver, FileLogObserver(logfile).emit)
+
+application.setComponent(ILogObserver, FileLogObserver(sys.stdout).emit)
 
 m = BuildMaster(basedir, configfile, umask)
 m.setServiceParent(application)
-m.log_rotation.rotateLength = rotateLength
-m.log_rotation.maxRotatedFiles = maxRotatedFiles
 
 # and slave on the same process!
 
 buildmaster_host = 'localhost'
-port = 9989
+port = 19989
 slavename = 'example-slave'
 passwd = 'pass'
 keepalive = 600

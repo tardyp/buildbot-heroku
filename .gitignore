@@ -1,0 +1,6 @@
+sandbox
+*.pyc
+master/runtests*
+master/slave
+master/state.sqlite
+
