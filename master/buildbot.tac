@@ -56,5 +56,5 @@ def pingMyself():
 
 
 if buildbotURL is not None:
-    t = TimerService(int(os.environ.get('PING_DELAY', '1')), pingMyself)
+    t = TimerService(int(os.environ.get('PING_DELAY', '1800')), pingMyself)
     t.setServiceParent(application)
